@@ -1,10 +1,34 @@
-# LLM FMI CPU Coding Benchmark 
-### (qwen3 evaluated for now)
+# LLM FMI
+## Register LiteLLM keys from CSV
+
+Input CSV must contain at least columns such as the one in example gr_909.csv:
+
+```csv
+Nume,Grupa,email
+Ciprian_Paduraru,909,ciprian.paduraru@fmi.unibuc.ro
+```
+
+Preview aliases without creating keys:
+
+```powershell
+python .\auto_key_register.py .\gr_909.csv --dry-run
+```
+
+Create keys:
+
+```powershell
+python .\auto_key_register.py .\gr_909.csv --username admin
+```
+
+The script prompts for the LiteLLM admin key/password. It creates aliases as `Gr{Grupa}_{Nume}` and writes generated keys/results to `{input_name}_created_keys.csv`, e.g. `gr_909_created_keys.csv`.
+
+
+
+## Coding Benchmark  tasks
 
 This repository benchmarks small and large Qwen models on deterministic Python programming tasks using a local OpenAI-compatible `llama.cpp` server. The benchmark compares functional correctness, generation latency, test execution time, and speed metrics such as tokens per second when returned by the inference server.
 
-
-## Benchmark tasks
+### (Note: qwen30.5 evaluated for now)
 
 1. `two_sum` — Finds two array indices whose values sum to a target. The task tests basic hash-map reasoning and simple edge cases.
 2. `longest_valid_parentheses` — Computes the longest valid parentheses substring. The task tests stack-based or dynamic-programming reasoning over strings.
